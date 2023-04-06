@@ -8,7 +8,7 @@ import { createContext, useEffect, useReducer } from "react";
 import {
   onAuthStateChangeListener,
   createUserDocumentFromAuth,
-} from "../utils/firebase/firebase.utils";
+} from "./utils/firebase/firebase.utils";
 import { setCurrentUser } from "./store/user/user.action";
 import { useDispatch } from "react-redux";
 
