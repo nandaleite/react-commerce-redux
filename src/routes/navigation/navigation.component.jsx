@@ -1,4 +1,4 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 import {
   LogoContainer,
@@ -9,18 +9,18 @@ import {
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 
-import { signOutUser } from "../../utils/firebase/firebase.utils";
+// import { signOutUser } from "../../utils/firebase/firebase.utils";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
+import { signOutStart } from "../../store/user/user.action";
 
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
-  const signOutHandler = async () => {
-    await signOutUser();
-  };
+  const dispatch = useDispatch();
+  const signOutUser = () => dispatch(signOutStart());
   return (
     <Fragment>
       <NavigationContainer>
@@ -48,7 +48,7 @@ const Navigation = () => {
               <a href="/shop/womens">Womens</a>
             </NavigationListItem>
             <NavigationListItem>
-              {currentUser ? <a onClick={signOutHandler}>Sign Out</a> : <a href="/auth">Sign In</a>}
+              {currentUser ? <a onClick={signOutUser}>Sign Out</a> : <a href="/auth">Sign In</a>}
             </NavigationListItem>
             <CartIcon />
           </NavigationList>
